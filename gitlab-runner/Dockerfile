@@ -28,6 +28,8 @@ RUN set -x \
 && apt-get -qy update \
 && apt-get -qy install --no-install-recommends --no-install-suggests ${PKGS_DOCKER_ENGINE} \
 && apt-get -qy install --no-install-recommends --no-install-suggests ${PKGS_GITLAB_RUNNER} \
+&& mkdir -p /etc/gitlab-runner/certs \
+&& chmod -R 700 /etc/gitlab-runner  \
 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /home/gitlab-runner
