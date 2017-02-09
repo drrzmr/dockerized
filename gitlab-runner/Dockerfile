@@ -32,6 +32,9 @@ RUN set -x \
 && chmod -R 700 /etc/gitlab-runner  \
 && rm -rf /var/lib/apt/lists/*
 
+ENV CONFIG_CONCURRENT="1"
+ENV CONFIG_CHECK_INTERVAL="60"
+
 WORKDIR /home/gitlab-runner
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
 ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint.sh"]
