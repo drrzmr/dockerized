@@ -4,8 +4,8 @@ MAINTAINER Eder Ruiz Maria <eder.rm82@gmail.com>
 ENV DEBIAN_FRONTEND="noninteractive"
 
 ENV PKGS_BASE="curl apt-transport-https ca-certificates"
-ENV PKGS_DOCKER_ENGINE="docker-engine"
-ENV PKGS_GITLAB_RUNNER="gitlab-ci-multi-runner"
+ENV PKGS_DOCKER_ENGINE="docker-engine=1.12.6-0~debian-jessie"
+ENV PKGS_GITLAB_RUNNER="gitlab-ci-multi-runner=1.10.4"
 
 ADD entrypoint.sh /entrypoint.sh
 WORKDIR /etc/apt/sources.list.d
