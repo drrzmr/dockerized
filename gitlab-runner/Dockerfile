@@ -15,8 +15,8 @@ WORKDIR /etc/apt/sources.list.d
 RUN set -x \
 && chmod +x \
 	/usr/bin/dumb-init \
-	/usr/bin/docker-compose \
 	/entrypoint.sh \
+&& chmod 755 /usr/bin/docker-compose \
 && apt-get -qy update \
 && apt-get -qy upgrade \
 && apt-get -qy dist-upgrade \
