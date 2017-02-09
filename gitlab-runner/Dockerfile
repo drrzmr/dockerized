@@ -7,10 +7,16 @@ ENV PKGS_BASE="curl apt-transport-https ca-certificates"
 ENV PKGS_DOCKER_ENGINE="docker-engine=1.12.6-0~debian-jessie"
 ENV PKGS_GITLAB_RUNNER="gitlab-ci-multi-runner=1.10.4"
 
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64 /usr/bin/dumb-init
+ADD https://github.com/docker/compose/releases/download/1.11.0/docker-compose-Linux-x86_64 /usr/bin/docker-compose
 ADD entrypoint.sh /entrypoint.sh
+
 WORKDIR /etc/apt/sources.list.d
 RUN set -x \
-&& chmod +x /entrypoint.sh \
+&& chmod +x \
+	/usr/bin/dumb-init \
+	/usr/bin/docker-compose \
+	/entrypoint.sh \
 && apt-get -qy update \
 && apt-get -qy upgrade \
 && apt-get -qy dist-upgrade \
@@ -26,5 +32,5 @@ RUN set -x \
 
 WORKDIR /home/gitlab-runner
 VOLUME ["/etc/gitlab-runner", "/home/gitlab-runner"]
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint.sh"]
 CMD ["run", "--user=gitlab-runner", "--working-directory=/home/gitlab-runner"]
