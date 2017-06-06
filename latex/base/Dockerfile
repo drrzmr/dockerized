@@ -1,5 +1,5 @@
 FROM debian:stretch-slim
-MAINTAINER Eder Ruiz Maria <eder.rm82@gmail.com>
+MAINTAINER Eder Ruiz Maria <drrzmr@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH ${PATH}:/opt/texlive/2016/bin/x86_64-linux

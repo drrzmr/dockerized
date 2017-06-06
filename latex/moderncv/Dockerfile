@@ -1,5 +1,5 @@
-FROM ederrm/latex:base-latest
-MAINTAINER Eder Ruiz Maria <eder.rm82@gmail.com>
+FROM drrzmr/latex:base-latest
+MAINTAINER Eder Ruiz Maria <drrzmr@gmail.com>
 
 ENV TEX_MODERNCV_PACKAGES \
 moderncv \
