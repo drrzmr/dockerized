@@ -27,8 +27,8 @@ changepage
 RUN set -x \
 && tlmgr update --self --all --reinstall-forcibly-removed \
 && tlmgr install ${TEX_MODERNCV_PACKAGES} \
-&& rm -f /opt/texlive/2016/tlpkg/texlive.tlpdb.* \
-&& rm -f /opt/texlive/2016/tlpkg/backups/* \
-&& find /opt/texlive/2016/ -type f -name '*.log' -delete
+&& rm -f /opt/texlive/2017/tlpkg/texlive.tlpdb.* \
+&& rm -f /opt/texlive/2017/tlpkg/backups/* \
+&& find /opt/texlive/2017/ -type f -name '*.log' -delete
 
 WORKDIR /project

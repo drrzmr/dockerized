@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 MAINTAINER Eder Ruiz Maria <drrzmr@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV PATH ${PATH}:/opt/texlive/2016/bin/x86_64-linux
+ENV PATH ${PATH}:/opt/texlive/2017/bin/x86_64-linux
 COPY texlive.profile /tmp 
 
 ENV TEX_BASE_DEBIAN_PACKAGES \
@@ -21,9 +21,9 @@ RUN set -x \
 && INSTALLER_DIR=$(ls -1 /tmp/install-tl) \
 && /tmp/install-tl/${INSTALLER_DIR}/install-tl --profile /tmp/texlive.profile \
 && tlmgr update --self --all --reinstall-forcibly-removed \
-&& rm -f /opt/texlive/2016/tlpkg/texlive.tlpdb.* \
-&& rm -f /opt/texlive/2016/tlpkg/backups/* \
-&& find /opt/texlive/2016/ -type f -name '*.log' -delete \
+&& rm -f /opt/texlive/2017/tlpkg/texlive.tlpdb.* \
+&& rm -f /opt/texlive/2017/tlpkg/backups/* \
+&& find /opt/texlive/2017/ -type f -name '*.log' -delete \
 && apt-get -yq autoremove --purge \
 && apt-get -yq clean \
 && apt-get -yq autoclean \
