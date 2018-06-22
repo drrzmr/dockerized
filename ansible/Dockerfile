@@ -1,11 +1,13 @@
-FROM debian:stretch-slim
+FROM ubuntu:18.04
 
 RUN set -eux; \
 apt-get -q update; \
 apt-get -qy upgrade; \
 apt-get -qy dist-upgrade; \
+apt-get -qy install --no-install-recommends --no-install-suggests git; \
+apt-get -qy install --no-install-recommends --no-install-suggests unzip; \
 apt-get -qy install --no-install-recommends --no-install-suggests python3-pip; \
-update-alternatives --install /usr/bin/python python /usr/bin/python3.5 1; \
+update-alternatives --install /usr/bin/python python /usr/bin/python3 1; \
 apt-get -qy purge --auto-remove; \
 rm -rf /var/lib/apt/lists/*
 
