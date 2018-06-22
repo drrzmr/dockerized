@@ -5,6 +5,7 @@ apt-get -q update; \
 apt-get -qy upgrade; \
 apt-get -qy dist-upgrade; \
 apt-get -qy install --no-install-recommends --no-install-suggests python3-pip; \
+update-alternatives --install /usr/bin/python python /usr/bin/python3.5 1; \
 apt-get -qy purge --auto-remove; \
 rm -rf /var/lib/apt/lists/*
 
