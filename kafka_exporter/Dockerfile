@@ -10,5 +10,8 @@ strip -s kafka_exporter; \
 cp kafka_exporter /usr/local/bin/kafka_exporter
 
 FROM debian:stretch-slim
+LABEL maintainer="Eder Ruiz <drrzmr@gmail.com>"
+LABEL dockerfile="https://github.com/drrzmr/dockerized/blob/kafka_exporter/kafka_exporter/Dockerfile"
+LABEL source="https://github.com/drrzmr/kafka_exporter"
 COPY --from=builder /usr/local/bin/kafka_exporter /usr/local/bin/kafka_exporter
 CMD /usr/local/bin/kafka_exporter
