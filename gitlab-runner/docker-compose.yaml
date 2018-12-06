@@ -1,0 +1,19 @@
+version: "2.1"
+services:
+  gitlab-runner:
+    image: ederrm/gitlab-runner:latest
+    build: .
+    privileged: true
+    hostname: gitlab-runner
+    restart: always
+    volumes:
+      - gitlab-runner-home:/home/gitlab-runner
+      - gitlab-runner-conf:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - CONFIG_CONCURRENT=5
+      - CONFIG_CHECK_INTERVAL=120
+
+volumes:
+  gitlab-runner-home:
+  gitlab-runner-conf:
