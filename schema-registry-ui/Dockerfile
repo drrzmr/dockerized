@@ -1,0 +1,7 @@
+FROM landoop/schema-registry-ui:0.9.5
+
+ENV SCHEMAREGISTRY_URL="http://localhost:8081"
+ENV PROXY="true"
+ENV ALLOW_GLOBAL="1"
+ENV ALLOW_DELETION="1"
+ENV ALLOW_TRANSITIVE="0"
