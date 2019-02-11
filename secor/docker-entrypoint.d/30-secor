@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -e
+[[ ${DEBUG} =~ ^(y|yes|Y|Yes)$ ]] && set -x
+
+#############################
+# generate secor.properties #
+#############################
+zookeeper_quorum=${ZOOKEEPER_QUORUM:-localhost:2181}
+kafka_seed_broker_host=${KAFKA_SEED_BROKER_HOST:-localhost}
+kafka_seed_broker_port=${KAFKA_SEED_BROKER_PORT:-9092}
+secor_max_file_size_bytes=${SECOR_MAX_FILE_SIZE_BYTES:-1}
+secor_max_file_age_seconds=${SECOR_MAX_FILE_AGE_SECONDS:-1200}
+kafka_consumer_auto_offset_reset=${KAFKA_CONSUMER_AUTO_OFFSET_RESET:-largest}
+secor_file_reader_writer_factory=${SECOR_FILE_READER_WRITER_FACTORY:-com.pinterest.secor.io.impl.DelimitedTextFileReaderWriterFactory}
+secor_file_extension=${SECOR_FILE_EXTENSION:-.txt}
+set -u
+# without defaults
+sed -i -e "s/^secor.kafka.group=.*$/secor.kafka.group=${SECOR_KAFKA_GROUP}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.kafka.topic_filter=.*$/secor.kafka.topic_filter=${SECOR_KAFKA_TOPIC_FILTER}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.message.parser.class=.*$/secor.message.parser.class=${SECOR_MESSAGE_PARSER_CLASS}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^aws.access.key=.*$/aws.access.key=${AWS_ACCESS_KEY}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^aws.secret.key=.*$/aws.secret.key=${AWS_SECRET_KEY}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.s3.bucket=.*$/secor.s3.bucket=${SECOR_S3_BUCKET}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.s3.path=.*$/secor.s3.path=${SECOR_S3_PATH}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.file.reader.writer.factory=.*$/secor.file.reader.writer.factory=${secor_file_reader_writer_factory}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.file.extension=.*$/secor.file.extension=${secor_file_extension}/" ${SECOR_PROPERTIES}
+# with defaults
+sed -i -e "s/^zookeeper.quorum=.*$/zookeeper.quorum=${zookeeper_quorum}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^kafka.consumer.auto.offset.reset=.*$/kafka.consumer.auto.offset.reset=${kafka_consumer_auto_offset_reset}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.max.file.size.bytes=.*$/secor.max.file.size.bytes=${secor_max_file_size_bytes}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^secor.max.file.age.seconds=.*$/secor.max.file.age.seconds=${secor_max_file_age_seconds}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^kafka.seed.broker.host=.*$/kafka.seed.broker.host=${kafka_seed_broker_host}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^kafka.seed.broker.port=.*$/kafka.seed.broker.port=${kafka_seed_broker_port}/" ${SECOR_PROPERTIES}
+set +u
+
+#############################
+# generate log4j.properties #
+#############################
+log_level=${LOG_LEVEL:-WARN}
+set -u
+sed -i -e "s/^log4j.rootLogger=.*$/log4j.rootLogger=${log_level}, CONSOLE/" ${LOG4J_PROPERTIES}
+set +u
+
+##############################
+# show fullfilled properties #
+##############################
+grep -v ^# ${SECOR_PROPERTIES} | grep -v "^$" | grep -v "=$" | grep -v "aws.secret" | grep -v "aws.access" | sort
