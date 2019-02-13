@@ -18,3 +18,6 @@ COPY log4j.properties ${LOG4J_PROPERTIES}
 COPY run-secor.sh /usr/local/bin/run-secor.sh
 
 CMD [ "run-secor.sh" ]
+
+ENV SECOR_PLUGINS="/opt/secor-plugins"
+COPY platform-secor-plugins-0.0.2-SNAPSHOT.jar ${SECOR_PLUGINS}/

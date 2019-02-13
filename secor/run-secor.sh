@@ -5,7 +5,7 @@ source /etc/profile
 secor_properties="file:///${SECOR_PROPERTIES}"
 log4j_properties="file:///${LOG4J_PROPERTIES}"
 secor="${SECOR_HOME}/secor-${SECOR_VERSION}.jar"
-classpath="${secor}:${SECOR_HOME}/lib/*"
+classpath="${secor}:${SECOR_HOME}/lib/*:${SECOR_PLUGINS}/*"
 mainclass="com.pinterest.secor.main.ConsumerMain"
 
 set -eux

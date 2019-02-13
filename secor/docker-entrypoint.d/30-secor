@@ -13,6 +13,7 @@ secor_max_file_age_seconds=${SECOR_MAX_FILE_AGE_SECONDS:-1200}
 kafka_consumer_auto_offset_reset=${KAFKA_CONSUMER_AUTO_OFFSET_RESET:-largest}
 secor_file_reader_writer_factory=${SECOR_FILE_READER_WRITER_FACTORY:-com.pinterest.secor.io.impl.DelimitedTextFileReaderWriterFactory}
 secor_file_extension=${SECOR_FILE_EXTENSION:-.txt}
+message_timestamp_name=${MESSAGE_TIMESTAMP_NAME:-date}
 set -u
 # without defaults
 sed -i -e "s/^secor.kafka.group=.*$/secor.kafka.group=${SECOR_KAFKA_GROUP}/" ${SECOR_PROPERTIES}
@@ -31,6 +32,7 @@ sed -i -e "s/^secor.max.file.size.bytes=.*$/secor.max.file.size.bytes=${secor_ma
 sed -i -e "s/^secor.max.file.age.seconds=.*$/secor.max.file.age.seconds=${secor_max_file_age_seconds}/" ${SECOR_PROPERTIES}
 sed -i -e "s/^kafka.seed.broker.host=.*$/kafka.seed.broker.host=${kafka_seed_broker_host}/" ${SECOR_PROPERTIES}
 sed -i -e "s/^kafka.seed.broker.port=.*$/kafka.seed.broker.port=${kafka_seed_broker_port}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^message.timestamp.name=.*$/message.timestamp.name=${message_timestamp_name}/" ${SECOR_PROPERTIES}
 set +u
 
 #############################
