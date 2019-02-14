@@ -8,6 +8,7 @@ set -e
 zookeeper_quorum=${ZOOKEEPER_QUORUM:-localhost:2181}
 kafka_seed_broker_host=${KAFKA_SEED_BROKER_HOST:-localhost}
 kafka_seed_broker_port=${KAFKA_SEED_BROKER_PORT:-9092}
+schema_registry_url=${SCHEMA_REGISTRY_URL:-http://localhost:8081}
 secor_max_file_size_bytes=${SECOR_MAX_FILE_SIZE_BYTES:-1}
 secor_max_file_age_seconds=${SECOR_MAX_FILE_AGE_SECONDS:-1200}
 kafka_consumer_auto_offset_reset=${KAFKA_CONSUMER_AUTO_OFFSET_RESET:-largest}
@@ -27,11 +28,12 @@ sed -i -e "s/^secor.file.reader.writer.factory=.*$/secor.file.reader.writer.fact
 sed -i -e "s/^secor.file.extension=.*$/secor.file.extension=${secor_file_extension}/" ${SECOR_PROPERTIES}
 # with defaults
 sed -i -e "s/^zookeeper.quorum=.*$/zookeeper.quorum=${zookeeper_quorum}/" ${SECOR_PROPERTIES}
+sed -i -e "s|^schema.registry.url=.*$|schema.registry.url=${schema_registry_url}|" ${SECOR_PROPERTIES}
+sed -i -e "s/^kafka.seed.broker.host=.*$/kafka.seed.broker.host=${kafka_seed_broker_host}/" ${SECOR_PROPERTIES}
+sed -i -e "s/^kafka.seed.broker.port=.*$/kafka.seed.broker.port=${kafka_seed_broker_port}/" ${SECOR_PROPERTIES}
 sed -i -e "s/^kafka.consumer.auto.offset.reset=.*$/kafka.consumer.auto.offset.reset=${kafka_consumer_auto_offset_reset}/" ${SECOR_PROPERTIES}
 sed -i -e "s/^secor.max.file.size.bytes=.*$/secor.max.file.size.bytes=${secor_max_file_size_bytes}/" ${SECOR_PROPERTIES}
 sed -i -e "s/^secor.max.file.age.seconds=.*$/secor.max.file.age.seconds=${secor_max_file_age_seconds}/" ${SECOR_PROPERTIES}
-sed -i -e "s/^kafka.seed.broker.host=.*$/kafka.seed.broker.host=${kafka_seed_broker_host}/" ${SECOR_PROPERTIES}
-sed -i -e "s/^kafka.seed.broker.port=.*$/kafka.seed.broker.port=${kafka_seed_broker_port}/" ${SECOR_PROPERTIES}
 sed -i -e "s/^message.timestamp.name=.*$/message.timestamp.name=${message_timestamp_name}/" ${SECOR_PROPERTIES}
 set +u
 
